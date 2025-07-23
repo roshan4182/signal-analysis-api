@@ -1,64 +1,204 @@
-## Language Learning App
+# signal-analysis-api
 
-## Overview:-
+&#x20; &#x20;
 
-Welcome to Learn_Word, a Python-based application designed to enhance your vocabulary with a new word every day. This app caters to a diverse audience, including travelers, immigrants, language enthusiasts, and corporate professionals, aiming to bridge language gaps and promote cultural understanding.
+An API and dashboard for generating styled histograms and summary reports from MDF or CSV measurement data, powered by an LLM engine with robust fallbacks.
 
-## Features:-
+## Table of Contents
 
-1. Everyday a new word:
->>Start your day with a unique word delivered to your device everyday, enriching your vocabulary across various contexts.
-  Explore words relevant to travel, work, and everyday life.
+* [Features](#features)
+* [Quickstart](#quickstart)
+* [Installation](#installation)
+* [Usage](#usage)
 
-2. Adaptive Learning Paths:
->>Personalize your learning experience with adaptive algorithms adjusting content difficulty based on your progress.
-  Unlock achievements and progress through levels as you master new words.
+  * [API](#running-the-api)
+  * [Dashboard](#using-the-streamlit-dashboard)
+* [Examples](#examples)
+* [Postman Collection](#postman-collection)
+* [Testing](#testing)
+* [Docker](#docker-optional)
+* [Contributing](#contributing)
+* [License](#license)
+* [Authors](#authors)
 
-3. Real-life Contexts:
->>Dive in interactive lessons simulating words which will come in handy and definitely upgrade your vocabulary resulting in good communication.
-  Practice language skills in practical contexts.
+---
 
-4. Multilingual Support:
->>Explore a wide range of languages, catering to users with diverse linguistic backgrounds.
-  Support for major global languages ensures easiness.
+## Features
 
-5. Gamified Learning Experience
->>Transform learning into an enjoyable journey with entertaining elements including challenges.
+* **MDF & CSV ingestion** via `pandas` and `asammdf`
+* **LLM-driven plotting**: dynamic Python code for single-series & comparative histograms with Freedman–Diaconis binning
+* **Fallback routines** in `plot_utils.py` for reliability
+* **Summary statistics**: mean, std, min/max, skewness, kurtosis
+* **Streamlit dashboard** for interactive exploration
+* **Docker-ready** for easy deployment
+
+---
+
+## Quickstart
+
+Run analysis with a single command (assuming Docker installed):
+
+```bash
+# Build and run
+docker build -t signal-analysis-api:latest .
+docker run --rm -p 8000:8000 \
+  -e GROQ_API_KEY=your_key \
+  signal-analysis-api:latest \
+  uvicorn main:app --host 0.0.0.0 --port 8000
+
+# Analyze data
+curl -X POST http://localhost:8000/analyze \
+  -F "files=@/path/to/data.mf4" \
+  -F "signal_names=speed" \
+  -F 'analysis_goals={"speed":"distribution of vehicle speed"}' \
+  --output output.zip
+```
+
+---
+
+## Installation
+
+1. **Clone** the repo:
+
+   ```bash
+   git clone https://github.com/roshan4182/signal-analysis-api.git
+   cd signal-analysis-api
+   ```
+2. **Create & activate** a virtual environment:
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+3. **Install** dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Configure** environment (create `.env`):
+
+   ```ini
+   GROQ_API_KEY=your_groq_api_key
+   GROQ_API_URL=https://api.groq.com/openai/v1/chat/completions
+   GROQ_MODEL=llama3-70b-8192
+   ```
+
+---
+
+## Live Demo
+
+Try the deployed services:
+
+* **API:** [https://signal-analysis-api.onrender.com/analyze](https://signal-analysis-api.onrender.com/analyze)
+* **Dashboard:** [https://share.streamlit.io/roshan4182/signal-analysis-api/main/dashboard.py](https://share.streamlit.io/roshan4182/signal-analysis-api/main/dashboard.py)
+
+You can `curl` the API directly or visit the dashboard in your browser.
+
+---
+
+## Usage
+
+### Running the API
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+#### Endpoint: `/analyze` (POST)
+
+* **Description**: Analyze files; returns a ZIP of charts and reports.
+* **Fields**:
+
+  * `files`: MDF4 or CSV (multiple).
+  * `signal_names`: Comma-separated list of signals.
+  * `analysis_goals`: JSON map of signal to goal.
+  * `use_fallback`: `true`/`false` to force fallback.
+
+See [Examples](#examples) for detailed commands.
+
+### Using the Streamlit Dashboard
+
+```bash
+pip install streamlit
+streamlit run dashboard.py
+```
+
+Open [http://localhost:8501](http://localhost:8501), upload files, enter signals/goals, and analyze.
+
+---
+
+## Examples
+
+### Single-series Histogram
+
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -F "files=@vehicle.csv" \
+  -F "signal_names=speed" \
+  -F 'analysis_goals={"speed":"distribution of speed"}' \
+  --output speed_analysis.zip
+```
+
+**Output ZIP** contains:
+
+* `histogram_speed.png`
+* `speed_summary.txt`
+
+### Comparative Histogram
+
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -F "files=@run1.mf4" \
+  -F "files=@run2.mf4" \
+  -F "signal_names=battery_voltage" \
+  -F 'analysis_goals={"battery_voltage":"comparative histogram of battery voltage across runs"}' \
+  --output battery_voltage.zip
+```
+
+**Output ZIP** contains:
+
+* `comparative_battery_voltage.png`
+* `battery_voltage_summary.txt`
+
+---
+
+## Postman Collection
+
+Import the [Postman collection](postman_collection.json) for interactive testing.
+
+---
+
+## Testing
+
+```bash
+pytest tests/
+```
+
+---
+
+## Docker (Optional)
+
+```bash
+docker build -t signal-analysis-api:latest .
+
+docker run -p 8000:8000 --env-file .env signal-analysis-api:latest
+```
+
+---
+
+## Contributing
+
+Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the Code of Conduct.
+
+---
+
+## Authors
+
+* **Your Name** – ROshan Mishra
 
 
+---
 
-## Frontend:-
-   *App Framework: Tkinter
-   *UI/UX Design: canva
-## Backend:-
-   *Server: Flask
-   *API Integration: Flask-RESTful
-   *Database: SQLite
+## License
 
-   
-## Configuration:-
->>Customization Options: Users can customize notification timings, difficulty levels, and preferred word categories.
-## Notifications:-
->>Personalized Notifications: Users can set the time of day to receive the daily word notification.
-
-## Domain Descriptions:-
-
-1.Dashboard
->>The dashboard serves as a centralized platform providing insights into user engagement, learning progress, and community interactions. Key features include:
-
-2.User Analytics: 
->>Track user activity, including the number of words learned, time spent on the app, and participation in challenges.
-
-## Usage:-
-
-1. Navigation:
->>Explore daily words by navigating through the app using the intuitive user interface.
-2. Customization:
->>Adjust notification timings and difficulty levels in the settings for a personalized learning experience.
-
-## License:-
->>This project is licensed under the MIT License.
-
-## Conclusion:-
->>Thank you for choosing Learn_Word! , embark on your language learning journey, and unlock the doors to linguistic proficiency and cultural understanding.
-
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
