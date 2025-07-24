@@ -18,8 +18,6 @@ An API and dashboard for generating styled histograms and summary reports from M
 * [Examples](#examples)
 * [Postman Collection](#postman-collection)
 * [Testing](#testing)
-* [Docker](#docker-optional)
-* [Contributing](#contributing)
 * [License](#license)
 * [Authors](#authors)
 
@@ -148,6 +146,21 @@ curl -X POST http://localhost:8000/analyze \
 * `histogram_speed.png`
 * `speed_summary.txt`
 
+### Units Sold at Nike
+
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -F "files=@/path/to/Nike_Sales_Uncleaned.csv" \
+  -F "signal_names=Units_Sold" \
+  -F 'analysis_goals={"Units_Sold":"distribution of units sold"}' \
+  --output units_hist.zip
+```
+
+**Output ZIP** contains: 
+
+*  histogram_Units_Sold.png
+*  Units_Sold_analysis.txt
+  
 ### Comparative Histogram
 
 ```bash
