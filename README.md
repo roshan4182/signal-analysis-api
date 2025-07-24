@@ -183,9 +183,9 @@ pytest tests/
 ---
 
 
-## Authors
+## Author
 
-* **Your Name** – Roshan Mishra
+* **Roshan Mishra** 
 
 ---
 
