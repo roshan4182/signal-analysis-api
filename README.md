@@ -94,7 +94,7 @@ Try the deployed services:
 Try the deployed services:
 
 - **API (docs):** https://signal-analysis-api-2nwy.onrender.com/docs  
-- **Dashboard:** https://share.streamlit.io/roshan4182/signal-analysis-api.streamlit.app
+- **Dashboard:**  https://signal-analysis-api.streamlit.app
 
 
 ---
