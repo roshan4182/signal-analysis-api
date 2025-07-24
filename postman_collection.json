@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "82a74347-69b6-4b51-8495-29badf526404",
+		"name": "signal-api-analysis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39147385"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/analyze\n?signal names=speed&analysis goals=speed\":\"distribution of vehicle speed\"&use fallback=false",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"analyze\n"
+					],
+					"query": [
+						{
+							"key": "signal names",
+							"value": "speed"
+						},
+						{
+							"key": "analysis goals",
+							"value": "speed\":\"distribution of vehicle speed\""
+						},
+						{
+							"key": "use fallback",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

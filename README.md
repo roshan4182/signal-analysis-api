@@ -169,7 +169,8 @@ curl -X POST http://localhost:8000/analyze \
 
 ## Postman Collection
 
-Import the [Postman collection](postman_collection.json) for interactive testing.
+Import the [Postman collection](./postman_collection.json) for interactive testing.
+
 
 ---
 
