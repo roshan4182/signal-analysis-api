@@ -61,7 +61,7 @@ curl -X POST http://localhost:8000/analyze \
 1. **Clone** the repo:
 
    ```bash
-   git clone git@github.com:roshan4182/singnal-analysis-api.git
+   git clone git@github.com:roshan4182/signal-analysis-api.git
    cd signal-analysis-api
    ```
 2. **Create & activate** a virtual environment:
@@ -89,8 +89,13 @@ curl -X POST http://localhost:8000/analyze \
 
 Try the deployed services:
 
-* **API:** [https://signal-analysis-api-2nwy.onrender.com/analyze](https://signal-analysis-api-2nwy.onrender.com/analyze)
-* **Dashboard:** [https://share.streamlit.io/roshan4182/signal-analysis-api/main/dashboard.py](https://share.streamlit.io/roshan4182/signal-analysis-api/main/dashboard.py)
+## Live Demo
+
+Try the deployed services:
+
+- **API (docs):** https://signal-analysis-api-2nwy.onrender.com/docs  
+- **Dashboard:** https://share.streamlit.io/roshan4182/signal-analysis-api/main/dashboard.py
+
 
 ---
 
