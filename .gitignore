@@ -1,3 +1,4 @@
 .env
 test*.zip
 *.mf4
+.DS_Store
