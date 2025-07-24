@@ -25,15 +25,20 @@ def read_signal_dataframe(data_paths: List[str], signal: str) -> pd.DataFrame:
             df = pd.read_csv(path)
         else:
             df = read_mdf_signal(path, signal)
-        df = normalize_time(df, time_col="time")
+         # only normalize if there's a time column
+        if "time" in df.columns:
+            df = normalize_time(df, time_col="time")
+
         dfs.append(df)
+
     if not dfs:
         return pd.DataFrame()
-    combined = pd.concat(dfs, ignore_index=True)
-    #only sort by time if that column is present
-    if "time" in combined.columns:
-        combined = combined.sort_values("time").reset_index(drop=True)
-    return combined
+
+    all_df = pd.concat(dfs, ignore_index=True)
+    # only sort by time if present
+    if "time" in all_df.columns:
+        all_df = all_df.sort_values("time").reset_index(drop=True)
+    return all_df.reset_index(drop=True)
 
 def execute_analysis(
     data_paths: List[str],
