@@ -182,26 +182,10 @@ pytest tests/
 
 ---
 
-## Docker (Optional)
-
-```bash
-docker build -t signal-analysis-api:latest .
-
-docker run -p 8000:8000 --env-file .env signal-analysis-api:latest
-```
-
----
-
-## Contributing
-
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the Code of Conduct.
-
----
 
 ## Authors
 
-* **Your Name** – Initial design & implementation
-* **Collaborators** – Feedback & testing
+* **Your Name** – Roshan Mishra
 
 ---
 
