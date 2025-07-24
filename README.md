@@ -1,5 +1,7 @@
 # signal-analysis-api
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://signal-analysis-api.streamlit.app)
+
 &#x20; &#x20;
 
 An API and dashboard for generating styled histograms and summary reports from MDF or CSV measurement data, powered by an LLM engine with robust fallbacks.
