@@ -32,7 +32,6 @@ An API and dashboard for generating styled histograms and summary reports from M
 * **Fallback routines** in `plot_utils.py` for reliability
 * **Summary statistics**: mean, std, min/max, skewness, kurtosis
 * **Streamlit dashboard** for interactive exploration
-* **Docker-ready** for easy deployment
 
 ---
 
