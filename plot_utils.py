@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import skew, kurtosis
 from matplotlib.ticker import AutoLocator, AutoMinorLocator
-from asammdf import MDF
 from mdf_extractor import read_mdf_signal
 from signal_extractor import normalize_time
 
