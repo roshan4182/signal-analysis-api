@@ -29,7 +29,11 @@ def read_signal_dataframe(data_paths: List[str], signal: str) -> pd.DataFrame:
         dfs.append(df)
     if not dfs:
         return pd.DataFrame()
-    return pd.concat(dfs, ignore_index=True).sort_values("time").reset_index(drop=True)
+    combined = pd.concat(dfs, ignore_index=True)
+    #only sort by time if that column is present
+    if "time" in combined.columns:
+        combined = combined.sort_values("time").reset_index(drop=True)
+    return combined
 
 def execute_analysis(
     data_paths: List[str],
