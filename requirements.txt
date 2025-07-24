@@ -9,3 +9,4 @@ numpy
 python-dotenv
 openai  # needed for the Groq-compatible client
 asammdf
+streamlit
